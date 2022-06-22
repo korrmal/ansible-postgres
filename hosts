@@ -1,0 +1,18 @@
+[all]
+psql001 ansible_ssh_host=192.168.0.2 ansible_ssh_user=ansible ansible_become=yes
+psql002 ansible_ssh_host=192.168.0.3 ansible_ssh_user=ansible ansible_become=yes
+psql003 ansible_ssh_host=192.168.0.4 ansible_ssh_user=ansible ansible_become=yes
+
+[etcd]
+psql001
+psql002
+psql003
+
+[haproxy]
+psql001
+psql002
+
+[psql]
+psql001
+psql002
+psql003

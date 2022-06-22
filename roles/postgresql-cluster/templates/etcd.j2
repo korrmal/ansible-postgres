@@ -3,7 +3,6 @@ ETCD_LISTEN_CLIENT_URLS="http://127.0.0.1:2379, http://{{ ansible_host }}:2379"
 ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{ ansible_host }}:2380"
 {% set server_ip = [] %}
 {% for host in groups['etcd'] %}
-index {{ loop.index }} {{ hostvars[host].ansible_ssh_host }}
 {% do server_ip.append(  host+"=http://"+hostvars[host].ansible_ssh_host+":2380" ) %}
 {% endfor %}
 ETCD_INITIAL_CLUSTER="{{ server_ip|join(',') }}"
