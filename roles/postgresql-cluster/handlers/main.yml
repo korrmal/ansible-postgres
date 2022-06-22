@@ -1,0 +1,20 @@
+---
+- name: stop psql
+  service:
+    name: postgresql
+    state: stop
+
+- name: restart keepalived
+  service:
+    name: keepalived
+    state: restarted
+
+- name: restart haproxy
+  service:
+    name: haproxy
+    state: restarted
+
+- name: restart etcd
+  service:
+    name: etcd
+    state: restarted

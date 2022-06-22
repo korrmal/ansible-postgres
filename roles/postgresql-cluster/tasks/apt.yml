@@ -1,0 +1,19 @@
+---
+- name: Upgrade all packages with apt
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install package with apt
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+      - python3-pip
+      - python3-dev
+      - libpq-dev
+      - haproxy
+      - etcd
+      - keepalived
+    state: present
+  notify: stop psql

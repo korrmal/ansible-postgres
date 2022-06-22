@@ -1,0 +1,12 @@
+---
+- name: pip self-update
+  pip:
+    name: pip
+    state: latest
+
+- name: install modules with pip
+  pip:
+    name:
+      - patroni
+      - python-etcd
+      - psycopg2

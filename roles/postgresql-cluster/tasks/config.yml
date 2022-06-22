@@ -1,0 +1,28 @@
+---
+- name: configure keepalived
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
+  changed_when: true
+
+- name: configure haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+  changed_when: true
+
+- name: config etcd
+  template:
+    src: etcd.j2
+    dest: /etc/default/etcd
+  notify: restart etcd
+  changed_when: true
+
+- name: configure patroni
+  template:
+    src: patroni.yml.j2
+    dest: /etc/patroni.yml
+#  notify: restart haproxy
+#  changed_when: true
