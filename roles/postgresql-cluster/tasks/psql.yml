@@ -1,0 +1,5 @@
+---
+- name: restart psql
+  systemd:
+    name: postgresql
+    state: restarted

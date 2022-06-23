@@ -2,3 +2,4 @@
 - include: apt.yml
 - include: pip.yml
 - include: config.yml
+- include: psql.yml
