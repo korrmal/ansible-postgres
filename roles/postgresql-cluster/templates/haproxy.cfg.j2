@@ -33,9 +33,9 @@ listen stats
 
 listen psql
     bind :9001
-    mode tcp
-    option tcplog
-    balance leastconn
+    option httpchk
+    http-check expect status 200
+    default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
     {% for host in groups['psql'] %}
-    server {{ cluster_name }}-psql-{{ loop.index }} {{ hostvars[host].ansible_default_ipv4.address }}:6443 verify none ssl
+    server {{ cluster_name }}-psql-{{ loop.index }} {{ hostvars[host].ansible_default_ipv4.address }}:5432 maxconn 100 check port 8008
     {% endfor %}
