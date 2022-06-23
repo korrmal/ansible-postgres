@@ -20,9 +20,16 @@
   notify: restart etcd
   changed_when: true
 
+- name: patroni service
+  template:
+    src: patroni.service
+    dest: /etc/systemd/system/patroni.service
+  notify: reload systemd
+  changed_when: true
+
 - name: configure patroni
   template:
     src: patroni.yml.j2
     dest: /etc/patroni.yml
-#  notify: restart haproxy
-#  changed_when: true
+  notify: restart patroni
+  changed_when: true

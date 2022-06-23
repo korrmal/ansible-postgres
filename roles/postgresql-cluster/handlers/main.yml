@@ -18,3 +18,12 @@
   service:
     name: etcd
     state: restarted
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: restart patroni
+  systemd:
+    name: patroni
+    state: restarted

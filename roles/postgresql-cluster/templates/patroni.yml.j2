@@ -3,11 +3,15 @@ namespace: /db/
 name: postgresql0
 
 restapi:
-    listen: 69.87.217.177:8008
-    connect_address: 69.87.217.177:8008
+    listen: {{ ansible_host }}:8008
+    connect_address: {{ ansible_host }}:8008
 
 etcd:
-    host: 45.58.42.212:2379
+{% set server_ip = [] %}
+{% for host in groups['etcd'] %}
+{% do server_ip.append(  host+"=http://"+hostvars[host].ansible_ssh_host+":2379" ) %}
+{% endfor %}
+    host:"{{ server_ip|join(',') }}"
 
 bootstrap:
     dcs:
@@ -24,8 +28,9 @@ bootstrap:
 
     pg_hba:
     - host replication replicator 127.0.0.1/32 md5
-    - host replication replicator 69.87.217.177/0 md5
-    - host replication replicator 45.58.39.238/0 md5
+{% for host in groups['psql'] %}
+    -host replication replicator {{ hostvars[host].ansible_default_ipv4.address }}/0 md5
+{% endfor %}
     - host all all 0.0.0.0/0 md5
 
     users:
@@ -36,8 +41,8 @@ bootstrap:
                 - createdb
 
 postgresql:
-    listen: 69.87.217.177:5432
-    connect_address: 69.87.217.177:5432
+    listen: {{ ansible_host }}:5432
+    connect_address: {{ ansible_host }}:5432
     data_dir: /mnt/patroni
     pgpass: /tmp/pgpass
     authentication:
