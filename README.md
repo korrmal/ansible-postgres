@@ -1,5 +1,5 @@
 # ansible-postgres
-Ansible role for postgresql cluster with patroni, etcd and haproxy сдгыеук
+Ansible role for postgresql cluster with patroni, etcd and haproxy
 
 Must be add jinja2_extensions = jinja2.ext.do to ansible.cfg
 
