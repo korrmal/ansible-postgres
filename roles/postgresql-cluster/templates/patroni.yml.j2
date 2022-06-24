@@ -1,6 +1,6 @@
 scope: postgres
 namespace: /db/
-name: postgresql0
+name: {{ inventory_hostname }}
 
 restapi:
   listen: {{ ansible_host }}:8008
@@ -20,7 +20,9 @@ bootstrap:
     retry_timeout: 10
     maximum_lag_on_failover: 1048576
     postgresql:
-    use_pg_rewind: true
+      use_pg_rewind: true
+      use_slots: true
+
 
   initdb:
     - encoding: UTF8
@@ -53,7 +55,7 @@ postgresql:
       username: postgres
       password: password
   parameters:
-    unix_socket_directories: '/var/run/postgresql'
+    unix_socket_directories: '.'
 
 tags:
   nofailover: false
