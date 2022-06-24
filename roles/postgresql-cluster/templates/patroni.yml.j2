@@ -9,7 +9,7 @@ restapi:
 etcd:
 {% set server_ip = [] %}
 {% for host in groups['etcd'] %}
-{% do server_ip.append(  host+":2379" ) %}
+{% do server_ip.append(  hostvars[host].ansible_ssh_host+":2379" ) %}
 {% endfor %}
   host: {{ server_ip|join(',') }}
 
@@ -43,7 +43,9 @@ bootstrap:
 postgresql:
   listen: {{ ansible_host }}:5432
   connect_address: {{ ansible_host }}:5432
-  data_dir: /mnt/patroni
+  data_dir: /var/lib/postgresql/12/main
+  bin_dir: /usr/lib/postgresql/12/bin
+  config_dir: /etc/postgresql/12/main
   pgpass: /tmp/pgpass
   authentication:
     replication:
@@ -53,7 +55,7 @@ postgresql:
       username: postgres
       password: password
   parameters:
-    unix_socket_directories: '.'
+    unix_socket_directories: '/var/run/postgresql'
 
 tags:
   nofailover: false
