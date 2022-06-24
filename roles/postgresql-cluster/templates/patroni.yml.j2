@@ -43,9 +43,7 @@ bootstrap:
 postgresql:
   listen: {{ ansible_host }}:5432
   connect_address: {{ ansible_host }}:5432
-  data_dir: /var/lib/postgresql/12/main
-  bin_dir: /usr/lib/postgresql/12/bin
-  config_dir: /etc/postgresql/12/main
+  data_dir: /data/db
   pgpass: /tmp/pgpass
   authentication:
     replication:
