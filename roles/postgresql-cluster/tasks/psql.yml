@@ -3,3 +3,4 @@
   file:
     state: absent
     path: /var/lib/postgresql/12/main
+  notify: disable psql
