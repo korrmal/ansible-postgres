@@ -1,8 +1,13 @@
 ---
 - name: stop psql
-  service:
+  systemd:
     name: postgresql
     state: stop
+
+- name: disable psql
+  systemd:
+    name: postgresql
+    enabled: no
 
 - name: restart keepalived
   service:

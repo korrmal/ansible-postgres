@@ -21,7 +21,13 @@ bootstrap:
     postgresql:
       use_pg_rewind: true
       use_slots: true
-
+    parametrs:
+      wal_level: replica
+      hot_standby: "on"
+      logging_collector: 'on'
+      max_wal_senders: 5
+      max_replication_slots: 5
+      wal_log_hints: "on"
 
   initdb:
     - encoding: UTF8
@@ -44,7 +50,8 @@ bootstrap:
 postgresql:
   listen: {{ ansible_host }}:5432
   connect_address: {{ ansible_host }}:5432
-  data_dir: /data/db
+  data_dir: "/var/lib/postgresql/12/main"
+  bin_dir: "/usr/lib/postgresql/12/bin"
   pgpass: /tmp/pgpass
   authentication:
     replication:
