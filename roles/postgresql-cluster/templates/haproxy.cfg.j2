@@ -33,6 +33,7 @@ listen stats
 
 listen psql-write
     bind :9000
+    mode tcp
     option httpchk OPTIONS /master
     http-check expect status 200
     default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
@@ -42,6 +43,7 @@ listen psql-write
 
 listen psql-read
     bind :9001
+    mode tcp
     balance roundrobin
     option httpchk OPTIONS /replica
     http-check expect status 200
